@@ -1,32 +1,28 @@
 from django import forms
+from django.core.validators import RegexValidator
 from .models import Detail
 
 class DetailsForm(forms.ModelForm):
+    phno = forms.CharField(
+        validators=[
+            RegexValidator(
+                regex=r'^\d{10}$',
+                message='Phone number must be exactly 10 digits.',
+                code='invalid_phno'
+            )
+        ],
+        widget=forms.TextInput(attrs={'class': 'form-handle', 'placeholder': 'Enter your phone number'})
+    )
+
     class Meta:
         model = Detail
-        fields='__all__'
-       # exclude=['phno']
-        # fields=['name','phno','email','addr']
+        fields = '__all__'
         labels = {
-            'phno': 'Phone Number',  # Corrected the syntax here
-            'addr': 'Address'        # Corrected the syntax here
+            'phno': 'Phone Number',
+            'addr': 'Address'
         }
-
-        widgets ={
-            'name':forms.TextInput(attrs={'class':'form-handle','placeholder':'Enter ur name'}),
-            'phno':forms.TextInput(attrs={'class':'form-handle','placeholder':'Enter ur phonenumber'}),
-            'email':forms.EmailInput(attrs={'class':'form-handle','placeholder':'Enter ur email'}),
-            'addr':forms.Textarea(attrs={'class':'form-handle','placeholder':'Enter ur address'}),
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-handle', 'placeholder': 'Enter your name'}),
+            'email': forms.EmailInput(attrs={'class': 'form-handle', 'placeholder': 'Enter your email'}),
+            'addr': forms.Textarea(attrs={'class': 'form-handle', 'placeholder': 'Enter your address'}),
         }
-
-
-
-
-
-# class DetailsForm(forms.Form):
-#     name=forms.CharField(max_length=50,label="Full Name in Capitals",required=False)
-#     phno=forms.CharField(max_length=50,label="Phone no",required=False)
-#     email=forms.CharField(max_length=50,required=True)
-#     addr=forms.CharField(max_length=50)
-    
-    # addr=forms.CharField(max_length=50,label="your current residing Address",required=False,disabled=True,  initial="India")

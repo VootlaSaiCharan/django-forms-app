@@ -1,51 +1,60 @@
-
-<h2>This is Contact Form</h2>
-
-<!-- <form action="">
-    {{ form }} 
-    <input type="submit">
-</form> -->
-
-<!-- <form action="">
-    {{ form.as_p }} 
-    <input type="submit">
-</form> -->
-
-<!-- <form action="">
-    {{ form }} 
-    <input type="submit">
-</form> -->
-
-<!--below is the Manual way of creating forms ,this can be reduced using for loop -->
-
-<!-- 
-
-<form action="">
-    <label for=""> {{ form.name.label }}</label><br>
-    {{ form.name }} <br>
-
-    <label for=""> {{ form.phno.label }}</label><br>
-    {{ form.phno }} <br>
-
-    <label for=""> {{ form.email.label }}</label><br>
-    {{ form.email }} <br>
-
-    <label for=""> {{ form.addr.label }}</label><br>
-    {{ form.addr }} <br>
-
-<input type="submit">
-</form> 
-
--->
-
-<!-- doing the above using for loop -->
-
-    <form action="" method="POST">
-    {% csrf_token %}    
-        {% for field in form %}
-        <label for=""> {{ field.label }}</label><br>
-        {{ field }} <br>
-        {% endfor %}
-
-    <input type="submit">
-    </form> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .form-container {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="tel"],
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form method="POST" action="{% url 'create' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>

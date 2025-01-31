@@ -17,9 +17,10 @@ def create_view(request):
         if form.is_valid():
             form.save() # very imp step ,if i miss this ,detail wont be saved into the database
             return redirect('home')
-        else:
-            return HttpResponse("something went wrong")
-    form=DetailsForm()
+    else:
+            form = DetailsForm()
+            # return HttpResponse("something went wrong")
+    # form=DetailsForm()
     return render(request,"form.html",{'form':form})
 
 
